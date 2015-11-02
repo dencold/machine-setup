@@ -10,10 +10,18 @@
 # Author: Dennis Coldwell (@dencold)
 #
 
+# Ask for the administrator password upfront.
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 # install homebrew, but redirect stdin from /dev/null so there is no TTY, and thus, 
 # no prompts for user input.
 ruby \
   -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" \
-  </dev/null
+  < /dev/null
 
+# finally, a vim install that isn't 5 years old.
+brew install vim
 
