@@ -23,5 +23,5 @@ ruby \
   < /dev/null
 
 # finally, a vim install that isn't 5 years old.
-brew install vim
+brew install vim --with-lua
 
