@@ -25,3 +25,6 @@ ruby \
 # finally, a vim install that isn't 5 years old.
 brew install vim --with-lua
 
+# the silver searcher, needed for ctl-p vim extension, grep replacement.
+brew install ag
+
