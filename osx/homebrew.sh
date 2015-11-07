@@ -28,3 +28,6 @@ brew install vim --with-lua
 # the silver searcher, needed for ctl-p vim extension, grep replacement.
 brew install ag
 
+# bash completion
+brew install bash-completion
+
