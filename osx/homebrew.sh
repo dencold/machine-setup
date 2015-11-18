@@ -31,3 +31,6 @@ brew install ag
 # bash completion
 brew install bash-completion
 
+# install the latest version of node
+brew install node
+
