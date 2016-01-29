@@ -34,3 +34,6 @@ brew install bash-completion
 # install the latest version of node
 brew install node
 
+# install golang
+brew install go
+
