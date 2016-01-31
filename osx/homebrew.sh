@@ -37,3 +37,6 @@ brew install node
 # install golang
 brew install go
 
+# install bzr, requried for installing some package dependencies
+brew install bzr
+
