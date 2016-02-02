@@ -40,3 +40,7 @@ brew install go
 # install bzr, requried for installing some package dependencies
 brew install bzr
 
+# install docker components
+brew install docker
+brew install docker-machine
+
