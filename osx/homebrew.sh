@@ -43,4 +43,7 @@ brew install bzr
 # install docker components
 brew install docker
 brew install docker-machine
+brew install docker-compose
 
+# install hugo, used for managing static websites
+brew install hugo
