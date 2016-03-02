@@ -47,3 +47,6 @@ brew install docker-compose
 
 # install hugo, used for managing static websites
 brew install hugo
+
+# aws command-line tools
+brew install awscli
