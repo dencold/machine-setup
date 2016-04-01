@@ -25,6 +25,9 @@ ruby \
 # finally, a vim install that isn't 5 years old.
 brew install vim --with-lua
 
+# get the latest version of git
+brew install git
+
 # the silver searcher, needed for ctl-p vim extension, grep replacement.
 brew install ag
 
@@ -50,3 +53,6 @@ brew install hugo
 
 # aws command-line tools
 brew install awscli
+
+# youtube-dl tool
+brew install youtube-dl
