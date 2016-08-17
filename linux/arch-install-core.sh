@@ -13,3 +13,5 @@ pacman --noconfirm -S go
 # node and npm
 pacman --noconfirm -S nodejs npm
 
+# curl
+pacman --noconfirm -S curl
