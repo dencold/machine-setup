@@ -7,6 +7,9 @@
 # ensure that arch is up to date
 pacman --noconfirm -Syu
 
+# base-devel, needed for tools like make, gcc, etc.
+pacman -S --noconfirm --needed base-devel
+
 # the go programming language
 pacman --noconfirm -S go
 
