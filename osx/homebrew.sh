@@ -56,3 +56,7 @@ brew install awscli
 
 # youtube-dl tool
 brew install youtube-dl
+
+# quicklook plugins, make that spacebar work for you!
+# see https://github.com/sindresorhus/quick-look-plugins
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook suspicious-package quicklookase qlvideo
