@@ -8,7 +8,7 @@
 #
 # Special thanks to @mathias for a lot of prior art here:
 # https://github.com/mathiasbynens/dotfiles/blob/master/.osx (original)
-# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos (as of 18 Nov.)
 #
 # Author: Dennis Coldwell (@dencold)
 #
