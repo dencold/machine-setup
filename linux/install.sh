@@ -45,6 +45,8 @@ echo "- Installing Arch AUR Packages"
 echo "- Installing Applications"
 ./arch-install-apps.sh
 
+./misc-install.sh
+
 echo
 echo "!! FINISHED - machine setup!!"
 echo "- You might want to run your dotfiles setup now."
