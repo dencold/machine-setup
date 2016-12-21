@@ -16,3 +16,6 @@ echo "- Installing misc scripts"
 go get -u github.com/jmhobbs/terminal-parrot
 mv $HOME/bin/terminal-parrot $HOME/bin/parrot
 
+# install tis
+cp -p bin/tis $HOME/bin/tis
+
