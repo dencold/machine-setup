@@ -4,9 +4,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
-var encoder map[string]string = map[string]string{
+type cipher map[string]string
+
+var encoder cipher = map[string]string{
 	"a": "u",
 	"b": "q",
 	"c": "z",
@@ -35,7 +38,7 @@ var encoder map[string]string = map[string]string{
 	"z": "k",
 }
 
-var decoder map[string]string = map[string]string{
+var decoder cipher = map[string]string{
 	"u": "a",
 	"q": "b",
 	"z": "c",
@@ -64,6 +67,8 @@ var decoder map[string]string = map[string]string{
 	"k": "z",
 }
 
+var debug bool
+
 func main() {
 	args := os.Args
 
@@ -75,10 +80,20 @@ func main() {
 		fail()
 	}
 
+	debug = checkDebug(args)
+
 	if args[1] == "e" {
-		filepath.Walk(".", walkEncode)
+		err := filepath.Walk(".", walkEncode)
+
+		if err != nil {
+			fmt.Println("encode err: ", err.Error())
+		}
 	} else {
-		filepath.Walk(".", walkDecode)
+		err := filepath.Walk(".", walkDecode)
+
+		if err != nil {
+			fmt.Println("decode err: ", err.Error())
+		}
 	}
 }
 
@@ -87,8 +102,8 @@ func fail() {
 	os.Exit(1)
 }
 
-func isHidden(filepath string) bool {
-	if len(filepath) > 1 && string(filepath[0]) == "." {
+func isHidden(filename string) bool {
+	if len(filename) > 1 && string(filename[0]) == "." {
 		return true
 	}
 
@@ -96,29 +111,65 @@ func isHidden(filepath string) bool {
 }
 
 func walkDecode(path string, info os.FileInfo, err error) error {
-	if isHidden(path) {
-		return filepath.SkipDir
+	if err != nil {
+		fmt.Printf("Error on path: %s, %s\n", path, err.Error())
+		return err
 	}
 
-	if info.IsDir() {
-		fmt.Printf("%s => %s\n", path, codec(path, decoder))
-	}
-	return nil
+	return printPath(path, info, decoder)
 }
 
 func walkEncode(path string, info os.FileInfo, err error) error {
-	if isHidden(path) {
-		return filepath.SkipDir
+	if err != nil {
+		fmt.Printf("Error on path: %s, %s\n", path, err.Error())
+		return err
 	}
 
-	if info.IsDir() {
-		fmt.Printf("%s => %s\n", path, codec(path, encoder))
+	return printPath(path, info, encoder)
+}
+
+func printPath(path string, info os.FileInfo, c cipher) error {
+	// check if this is a hidden file/directory, if so we want to skip it
+	if isHidden(info.Name()) {
+		if debug {
+			fmt.Printf("Skipping hidden path: %s\n", path)
+		}
+		if info.IsDir() {
+			return filepath.SkipDir
+		}
+
+		return nil
+	} else {
+		// translate the encoded/decoded representation of this file/dir
+		// but, do not translate the file's extension
+		p, ext := splitExtension(path)
+
+		str := translate(p, c)
+		str += ext
+		fmt.Printf("%s => %s\n", path, str)
 	}
+
 	return nil
 }
 
-func codec(in string, mapper map[string]string) string {
+func splitExtension(path string) (string, string) {
+	ext := filepath.Ext(path)
+	if ext == "" {
+		return path, ""
+	}
 
+	parts := strings.Split(path, ext)
+	if len(parts) > 2 {
+		// combine into one path before extension
+		path = strings.Join(parts[0:len(parts)-1], "")
+	} else {
+		path = parts[0]
+	}
+
+	return path, ext
+}
+
+func translate(in string, mapper cipher) string {
 	ret := ""
 
 	for _, letter := range in {
@@ -133,4 +184,14 @@ func codec(in string, mapper map[string]string) string {
 	}
 
 	return ret
+}
+
+func checkDebug(args []string) bool {
+	for _, arg := range args {
+		if arg == "--debug" {
+			return true
+		}
+	}
+
+	return false
 }
