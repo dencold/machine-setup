@@ -143,13 +143,13 @@ func printPath(path string, info os.FileInfo, c cipher) error {
 		// translate the encoded/decoded representation of this file/dir
 		// but, do not translate the file's extension (does not apply to dirs)
 		translatedPath := ""
-		if !info.IsDir() {
+		if info.IsDir() {
+			translatedPath = translate(path, c)
+		} else {
 			p, ext := splitExtension(path)
 
 			translatedPath = translate(p, c)
 			translatedPath += ext
-		} else {
-			translatedPath = translate(path, c)
 		}
 		fmt.Printf("%s => %s\n", path, translatedPath)
 	}
@@ -163,15 +163,7 @@ func splitExtension(path string) (string, string) {
 		return path, ""
 	}
 
-	parts := strings.Split(path, ext)
-	if len(parts) > 2 {
-		// combine into one path before extension
-		path = strings.Join(parts[0:len(parts)-1], "")
-	} else {
-		path = parts[0]
-	}
-
-	return path, ext
+	return strings.TrimSuffix(path, ext), ext
 }
 
 func translate(in string, mapper cipher) string {
