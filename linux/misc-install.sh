@@ -19,3 +19,5 @@ mv $HOME/bin/terminal-parrot $HOME/bin/parrot
 # install tis
 cp -p bin/tis $HOME/bin/tis
 
+# install base16 for pretty shell/vim themes
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
