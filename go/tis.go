@@ -81,24 +81,29 @@ func main() {
 	}
 
 	debug = checkFlag(args, "--debug")
+	full := checkFlag(args, "--full")
 
 	if args[1] == "e" {
-		err := filepath.Walk(".", walkEncode)
+		if full {
+			err := filepath.Walk(".", walkEncode)
 
-		if err != nil {
-			fmt.Println("encode err: ", err.Error())
+			if err != nil {
+				fmt.Println("encode err: ", err.Error())
+			}
 		}
 	} else {
-		err := filepath.Walk(".", walkDecode)
+		if full {
+			err := filepath.Walk(".", walkDecode)
 
-		if err != nil {
-			fmt.Println("decode err: ", err.Error())
+			if err != nil {
+				fmt.Println("decode err: ", err.Error())
+			}
 		}
 	}
 }
 
 func fail() {
-	fmt.Println("Usage: tis e|d")
+	fmt.Println("Usage: tis e|d [--full]")
 	os.Exit(1)
 }
 
