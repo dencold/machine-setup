@@ -80,7 +80,7 @@ func main() {
 		fail()
 	}
 
-	debug = checkDebug(args)
+	debug = checkFlag(args, "--debug")
 
 	if args[1] == "e" {
 		err := filepath.Walk(".", walkEncode)
@@ -183,9 +183,9 @@ func translate(in string, mapper cipher) string {
 	return ret
 }
 
-func checkDebug(args []string) bool {
+func checkFlag(args []string, matchTerm string) bool {
 	for _, arg := range args {
-		if arg == "--debug" {
+		if arg == matchTerm {
 			return true
 		}
 	}
