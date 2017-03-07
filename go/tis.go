@@ -83,28 +83,30 @@ func main() {
 	debug = checkFlag(args, "--debug")
 	full := checkFlag(args, "--full")
 
-	if args[1] == "e" {
-		if full {
-			err := filepath.Walk(".", walkEncode)
-
-			if err != nil {
-				fmt.Println("encode err: ", err.Error())
-			}
-		}
+	if full {
+		fullDirStructure(args[1])
 	} else {
-		if full {
-			err := filepath.Walk(".", walkDecode)
 
-			if err != nil {
-				fmt.Println("decode err: ", err.Error())
-			}
-		}
 	}
+
 }
 
 func fail() {
 	fmt.Println("Usage: tis e|d [--full]")
 	os.Exit(1)
+}
+
+func fullDirStructure(action string) {
+	var err error = nil
+	if action == "e" {
+		err = filepath.Walk(".", walkEncode)
+	} else {
+		err = filepath.Walk(".", walkDecode)
+	}
+
+	if err != nil {
+		fmt.Println("encode/decode err: ", err.Error())
+	}
 }
 
 func isHidden(filename string) bool {
