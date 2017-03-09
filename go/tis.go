@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -86,7 +87,19 @@ func main() {
 	if full {
 		fullDirStructure(args[1])
 	} else {
+		files, err := ioutil.ReadDir(".")
+		if err != nil {
+			fmt.Println("ERROR:", err)
+			fail()
+		}
+		ciph := decoder
+		if args[1] == "e" {
+			ciph = encoder
+		}
 
+		for _, file := range files {
+			printPath(file.Name(), file, ciph)
+		}
 	}
 
 }
