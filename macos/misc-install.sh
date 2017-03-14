@@ -17,7 +17,7 @@ go get -u github.com/jmhobbs/terminal-parrot
 mv $HOME/bin/terminal-parrot $HOME/bin/parrot
 
 # install tis
-cp -p bin/tis $HOME/bin/tis
+go install ../go/tis.go
 
 # install base16 for pretty shell/vim themes
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
