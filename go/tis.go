@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -68,53 +69,49 @@ var decoder cipher = map[string]string{
 	"k": "z",
 }
 
-var debug bool
+var debug = flag.Bool("debug", false, "enable debug mode")
+var encode = flag.String("e", "", "encode given string")
+var full = flag.String("full", "", "show full directory structure (pass e or d)")
+var help = flag.Bool("h", false, "display this message")
 
 func main() {
-	args := os.Args
+	flag.Parse()
 
-	if len(args) < 2 {
-		fail()
+	if *help {
+		flag.PrintDefaults()
+		os.Exit(0)
 	}
 
-	if args[1] != "e" && args[1] != "d" {
-		fail()
-	}
+	if *full != "" {
+		fullDirStructure(*full)
+	} else if *encode != "" {
+		p, ext := splitExtension(*encode)
 
-	debug = checkFlag(args, "--debug")
-	full := checkFlag(args, "--full")
-
-	if full {
-		fullDirStructure(args[1])
+		translatedPath := translate(p, encoder)
+		translatedPath += ext
+		fmt.Println(translatedPath)
 	} else {
 		files, err := ioutil.ReadDir(".")
 		if err != nil {
 			fmt.Println("ERROR:", err)
-			fail()
+			os.Exit(1)
 		}
 		ciph := decoder
-		if args[1] == "e" {
-			ciph = encoder
-		}
 
 		for _, file := range files {
 			printPath(file.Name(), file, ciph)
 		}
 	}
-
-}
-
-func fail() {
-	fmt.Println("Usage: tis e|d [--full]")
-	os.Exit(1)
 }
 
 func fullDirStructure(action string) {
 	var err error = nil
 	if action == "e" {
 		err = filepath.Walk(".", walkEncode)
-	} else {
+	} else if action == "d" {
 		err = filepath.Walk(".", walkDecode)
+	} else {
+		fmt.Println("Please pass either e or d for --full flag")
 	}
 
 	if err != nil {
@@ -151,7 +148,7 @@ func walkEncode(path string, info os.FileInfo, err error) error {
 func printPath(path string, info os.FileInfo, c cipher) error {
 	// check if this is a hidden file/directory, if so we want to skip it
 	if isHidden(info.Name()) {
-		if debug {
+		if *debug {
 			fmt.Printf("Skipping hidden path: %s\n", path)
 		}
 		if info.IsDir() {
