@@ -62,7 +62,6 @@ brew install vim --with-lua -with-override-system-vi
 
 # Install more recent versions of some macOS tools.
 brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
 brew install tree
 
