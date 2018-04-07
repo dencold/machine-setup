@@ -18,3 +18,6 @@ pacman --noconfirm -S nodejs npm
 
 # curl
 pacman --noconfirm -S curl
+
+# tmux - terminal multiplexer
+pacman --noconfirm -S tmux
