@@ -43,8 +43,8 @@ brew install lua
 brew install vim
 
 # Install more recent versions of some macOS tools.
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/screen
+brew install grep
+brew install screen
 brew install tree
 
 # get the latest version of git
