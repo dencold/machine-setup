@@ -3,7 +3,9 @@
 # Homebrew is a package manager for the missing unix commands you wish you had on your 
 # Mac. Learn more about the project here: http://brew.sh/
 #
-# This script takes care of installing homebrew and the collection of utilities that I
+# This script expects to have homebrew already installed.
+#
+# Will take care of installing / updating and the collection of utilities that I
 # like to have available on my OSX installs. Unlike the instructions from the homebrew
 # docs, this script can handle the installation process without input from the user.
 #
@@ -15,12 +17,6 @@ sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# install homebrew, but redirect stdin from /dev/null so there is no TTY, and thus, 
-# no prompts for user input.
-ruby \
-  -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" \
-  < /dev/null
 
 # Make sure we’re using the latest Homebrew.
 brew update
