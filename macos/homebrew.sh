@@ -44,18 +44,12 @@ brew install wget
 brew install lua
 
 # finally, a vim install that isn't 5 years old.
-brew install vim --with-lua -with-override-system-v
+brew install vim
 
 # Install more recent versions of some macOS tools.
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/screen
 brew install tree
-
-# Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
 
 # get the latest version of git
 brew install git
@@ -89,10 +83,6 @@ brew install youtube-dl
 # reattach-to-user-namespace needed for tmux => macos clipboard sync
 # https://www.devroom.io/2017/03/22/tmux-and-vim-copy-and-paste-on-macos-sierra/
 brew install reattach-to-user-namespace
-
-# quicklook plugins, make that spacebar work for you!
-# see https://github.com/sindresorhus/quick-look-plugins
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv qlimagesize webpquicklook suspicious-package quicklookase qlvideo
 
 # Remove outdated versions from the cellar.
 brew cleanup
