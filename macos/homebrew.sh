@@ -76,10 +76,5 @@ brew install awscli
 # youtube-dl tool
 brew install youtube-dl
 
-# reattach-to-user-namespace needed for tmux => macos clipboard sync
-# https://www.devroom.io/2017/03/22/tmux-and-vim-copy-and-paste-on-macos-sierra/
-brew install reattach-to-user-namespace
-
 # Remove outdated versions from the cellar.
 brew cleanup
-
